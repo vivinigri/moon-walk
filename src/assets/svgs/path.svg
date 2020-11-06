@@ -1,0 +1,28 @@
+<svg height="140" width="120">
+    <!-- <polygon
+    points="0,35 60,0 120,35 120,105 60,140 0,105"
+    style="fill:pink;stroke:purple;stroke-width:1;fill-rule:evenodd;"
+    /> -->
+    <defs>
+    <pattern
+        id="img1"
+        patternUnits="userSpaceOnUse"
+        width="120"
+        height="140"
+    >
+        <image
+        href="./../images/path.png"
+        x="0"
+        y="0"
+        width="120"
+        height="140"
+        />
+    </pattern>
+    </defs>
+    <path
+    d="M0,70 C60,70 60,70 90,17.5"
+    stroke-width="12"
+    fill="none"
+    stroke="url(#img1)"
+    />
+</svg>
