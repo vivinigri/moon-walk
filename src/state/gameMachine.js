@@ -1,14 +1,20 @@
 import { Machine, assign } from "xstate"
 import React from "react"
-import { generateGrid } from "./helpers"
+import { generateGrid, getPairPath } from "./helpers"
 
 export const GameMachine = React.createContext()
+
+const grid = generateGrid(5, 5)
 
 export const gameMachine = Machine(
   {
     initial: "idle",
     context: {
-      grid: generateGrid(5, 5),
+      grid,
+      player: {
+        pos: {row: 3, col: 3},
+        path: getPairPath(grid[2][2].pairs[0], 0)
+      }
     },
     states: {
       idle: {

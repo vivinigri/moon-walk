@@ -1,9 +1,8 @@
 import React from "react"
 import { PathSvg } from "styled/Paths.styled"
 import pathImg from "assets/images/path.png"
+import {getPairPath} from "state/helpers"
 
-const points = ["90,17.5", "120,70", "90,122.5", "30,122.5", "0,70", "30,17.5"]
-const center = "C60,70 60,70"
 
 const Paths = ({ paths }) => {
   return (
@@ -19,12 +18,10 @@ const Paths = ({ paths }) => {
         </pattern>
       </defs>
       {paths.map((p) => {
-        const [p1, p2] = p.split("-")
-        const path = `M${points[p1]} ${center} ${points[p2]}`
         return (
           <path
-            key={path.replace(" ", "-")}
-            d={path}
+            key={p}
+            d={getPairPath(p, 0)}
             strokeWidth="9"
             fill="none"
             stroke="url(#pattern)"

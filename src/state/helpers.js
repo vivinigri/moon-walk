@@ -25,6 +25,12 @@ export const generateGrid = (ROWS, COLS) => {
 }
 
 /*
+ * Constants hexagon
+ */
+export const points = ["90,17.5", "120,70", "90,122.5", "30,122.5", "0,70", "30,17.5"]
+export const center = "C60,70 60,70"
+
+/*
  * Get Path according to rotation
  */
 function newLado(val, deg) {
@@ -33,7 +39,13 @@ function newLado(val, deg) {
   return delta
 }
 
-export const getActualPath = (el, deg) => {
+function getActualPair(el, deg) {
   const [p1, p2] = el.split("-")
   return `${newLado(+p1, deg)}-${newLado(+p2, deg)}`
+}
+
+export const getPairPath = (pair, rot) => {
+  const actual = getActualPair(pair, rot)
+  const [p1, p2] = actual.split("-")
+  return `M${points[p1]} ${center} ${points[p2]}` 
 }
