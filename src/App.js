@@ -1,7 +1,8 @@
-import { gameMachine, GameMachine } from "./state/gameMachine"
 import { useMachine } from "@xstate/react"
-import useWindowSize from "./hooks/useWindowSize"
-import Grid from "./components/Grid"
+import { gameMachine, GameMachine } from "state/gameMachine"
+import useWindowSize from "hooks/useWindowSize"
+import Grid from "components/Grid"
+import Player from "components/Player"
 import "./App.css"
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       <GameMachine.Provider value={{ current, send }}>
         <div className="GameArea">
           <div style={{ transform: `scale(${boardScale()})` }}>
+            <Player />
             <Grid />
           </div>
         </div>
