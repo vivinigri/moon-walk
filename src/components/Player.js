@@ -15,13 +15,14 @@ const move = keyframes`
 const PlayerImg = styled.img`
   position: absolute;
   z-index: 100;
+  left: 0;
+  top: 0;
   offset-path: path(${(props) => `"${props.path}"`});
-  animation: ${move} 3s ease-in-out;
+  animation: ${move} 3s infinite;
 `
 
 export default function Player() {
   const { current } = useContext(GameMachine)
-  const {player} = current.context
-  console.log('path', player.path);
+  const { player } = current.context
   return <PlayerImg src={spaceship} alt="spaceship" path={player.path} />
 }
