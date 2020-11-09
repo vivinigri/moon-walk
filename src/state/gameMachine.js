@@ -1,6 +1,11 @@
 import { Machine, assign } from "xstate"
 import React from "react"
-import { generateGrid, getAbsPath, getPairWithValue, getNextPos } from "./helpers"
+import {
+  generateGrid,
+  getAbsPath,
+  getPairWithValue,
+  getNextPos,
+} from "./helpers"
 
 export const GameMachine = React.createContext()
 
@@ -12,10 +17,10 @@ export const gameMachine = Machine(
     context: {
       grid,
       player: {
-        pos: {row: 1, col: 3},
+        pos: { row: 1, col: 3 },
         end: 3,
-        path: ""
-      }
+        path: "",
+      },
     },
     states: {
       player: {
@@ -25,18 +30,21 @@ export const gameMachine = Machine(
           idle: {
             after: {
               3000: [{ target: "walk" }],
-            }
+            },
           },
           walk: {
             entry: ["getNewPath"],
             after: {
-              3000: [{target: "gameover", cond: "posInvalid"}, { target: "walk" }],
+              3000: [
+                { target: "gameover", cond: "posInvalid" },
+                { target: "walk" },
+              ],
             },
           },
           gameover: {
-            type: "final"
-          }
-        }
+            type: "final",
+          },
+        },
       },
       tiles: {
         id: "tiles",
@@ -44,10 +52,14 @@ export const gameMachine = Machine(
         states: {
           idle: {
             on: {
-              rotateTile: { target: "idle", actions: ["changeGrid"], cond: "canRotateHex" },
+              rotateTile: {
+                target: "idle",
+                actions: ["changeGrid"],
+                cond: "canRotateHex",
+              },
             },
-          }
-        }
+          },
+        },
       },
     },
   },
@@ -65,22 +77,30 @@ export const gameMachine = Machine(
       getNewPath: assign({
         player: (context, event) => {
           const { player, grid } = context
-          const { row, col } = getNextPos(player.pos.row, player.pos.col, +player.end)
+          const { row, col } = getNextPos(
+            player.pos.row,
+            player.pos.col,
+            +player.end
+          )
           if (!grid[row] || !grid[row][col]) {
-            return {...player, pos:{row, col}}
+            return { ...player, pos: { row, col } }
           }
           const rot = grid[row][col].rotate
-          const newStart = (+player.end + 3)%6
-          const [start, end] = getPairWithValue(grid[row][col].pairs, newStart, rot)
+          const newStart = (+player.end + 3) % 6
+          const [start, end] = getPairWithValue(
+            grid[row][col].pairs,
+            newStart,
+            rot
+          )
           const newPath = getAbsPath(start, end, rot, row, col)
 
           return {
-            pos: {row, col},
+            pos: { row, col },
             end,
             path: newPath,
           }
-        }
-      })
+        },
+      }),
     },
 
     guards: {
@@ -96,7 +116,7 @@ export const gameMachine = Machine(
         const { player } = context
         const { row, col } = player.pos
         return row < 0 || col < 0 || row > 4 || col > 4
-      }
-    }
+      },
+    },
   }
 )

@@ -1,6 +1,6 @@
-import React, {useContext} from "react"
+import React, { useContext } from "react"
 import { GameMachine } from "state/gameMachine"
-import styled, {keyframes} from "styled-components"
+import styled, { keyframes } from "styled-components"
 import spaceship from "assets/images/spaceship.png"
 
 const move = keyframes`
