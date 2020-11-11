@@ -37,7 +37,7 @@ export const gameMachine = Machine(
             after: {
               3000: [
                 { target: "gameover", cond: "posInvalid" },
-                { target: "walk" },
+                { target: "walk", actions: ["changeTile"] },
               ],
             },
           },
@@ -93,12 +93,20 @@ export const gameMachine = Machine(
             rot
           )
           const newPath = getAbsPath(start, end, rot, row, col)
-
           return {
             pos: { row, col },
             end,
             path: newPath,
           }
+        },
+      }),
+      changeTile: assign({
+        grid: (context, event) => {
+          const { player, grid } = context
+          const { row, col } = player.pos
+          const tile = grid[row][col].tile
+          grid[row][col].tile = tile < 2 ? tile + 1 : tile
+          return grid
         },
       }),
     },

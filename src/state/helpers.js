@@ -8,7 +8,7 @@ function randomInRange(ar) {
 }
 
 function pairArray(ar) {
-  return `${ar.splice(0, 1)}-${ar.splice(randomInRange(ar), 1)}`
+  return [ar.splice(0, 1)[0], ar.splice(randomInRange(ar), 1)[0]]
 }
 
 export const generateGrid = (ROWS, COLS) => {
@@ -60,13 +60,13 @@ function newLado(val, deg) {
 }
 
 function getActualPair(el, deg) {
-  const [p1, p2] = el.split("-")
-  return `${newLado(+p1, deg)}-${newLado(+p2, deg)}`
+  const [p1, p2] = el
+  return [newLado(+p1, deg), newLado(+p2, deg)]
 }
 
 export const getPairPath = (pair, rot) => {
   const actual = getActualPair(pair, rot)
-  const [p1, p2] = actual.split("-")
+  const [p1, p2] = actual
   return `M${points[p1]} ${center} ${points[p2]}`
 }
 
@@ -87,11 +87,11 @@ export const getAbsPath = (p1, p2, rot, row, col) => {
 
 export const getPairWithValue = (ar, value, deg) => {
   const pair = ar.filter((el) => {
-    const [i, j] = el.split("-")
-    const ij = `${newLado(+i, deg)}-${newLado(+j, deg)}`
+    const [i, j] = el
+    const ij = [newLado(i, deg), newLado(+j, deg)]
     return ij.includes(value)
   })[0]
-  const [p1, p2] = pair.split("-")
+  const [p1, p2] = pair
   return newLado(+p1, deg) === +value
     ? [newLado(+p1, deg), newLado(+p2, deg)]
     : [newLado(+p2, deg), newLado(+p1, deg)]

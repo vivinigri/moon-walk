@@ -1,7 +1,6 @@
 import React, { useContext } from "react"
 import { GameMachine } from "state/gameMachine"
 import { GridRow, Tile, HexTile, HexImg } from "styled/Grid.styled"
-import tile from "assets/images/tile.png"
 import Paths from "./Paths"
 
 const Grid = () => {
@@ -18,7 +17,13 @@ const Grid = () => {
         >
           <HexTile rotate={grid[row][col].rotate}>
             <Paths paths={grid[row][col].pairs} />
-            <HexImg alt="tile" src={tile} />
+            <HexImg
+              alt="tile"
+              src={
+                require(`./../assets/images/tile${grid[row][col].tile}.png`)
+                  .default
+              }
+            />
           </HexTile>
         </Tile>
       ))}
