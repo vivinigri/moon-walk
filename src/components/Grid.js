@@ -2,12 +2,13 @@ import React, { useContext } from "react"
 import { GameMachine } from "state/gameMachine"
 import { GridRow, Tile, HexTile, HexImg } from "styled/Grid.styled"
 import Paths from "./Paths"
+import utils from "state/utils"
 
 const Grid = () => {
   const { current, send } = useContext(GameMachine)
   const { grid } = current.context
   return grid.map((rows, row) => (
-    <GridRow key={`row${row}`} cols={5}>
+    <GridRow key={`row${row}`} cols={utils.COLS}>
       {rows.map((cols, col) => (
         <Tile
           key={`ìmg${col}`}

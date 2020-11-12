@@ -6,10 +6,11 @@ import {
   getPairWithValue,
   getNextPos,
 } from "./helpers"
+import utils from "./utils"
 
 export const GameMachine = React.createContext()
 
-const grid = generateGrid(5, 5)
+const grid = generateGrid(utils.ROWS, utils.COLS)
 
 export const gameMachine = Machine(
   {

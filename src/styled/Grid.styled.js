@@ -17,7 +17,7 @@ export const HexImg = styled.img`
 export const GridRow = styled.div`
   display: flex;
   flex-direction: row;
-  height: 140px;
+  height: 120px;
   width: ${(props) => props.cols * 120}px;
 `
 
